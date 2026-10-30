@@ -1,0 +1,8 @@
+services:
+  blog:
+    build: .
+    container_name: personal-blog
+    ports:
+      # 本机访问 http://服务器IP:8080 ；若直接对外可改为 "80:80"
+      - "8080:80"
+    restart: unless-stopped
