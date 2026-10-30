@@ -6,7 +6,8 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-DEPLOY_HOST="${DEPLOY_HOST:?请设置 DEPLOY_HOST，例如 root@1.2.3.4}"
+# 默认指向当前服务器；可用环境变量覆盖账号，例如：export DEPLOY_HOST=ubuntu@43.142.19.45
+DEPLOY_HOST="${DEPLOY_HOST:-root@43.142.19.45}"
 DEPLOY_PATH="${DEPLOY_PATH:-/var/www/blog}"
 
 cd "$ROOT_DIR"

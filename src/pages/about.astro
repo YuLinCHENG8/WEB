@@ -4,27 +4,25 @@ import Layout from '../layouts/BlogPost.astro';
 ---
 
 <Layout
-	title="关于我"
-	description="这是我的个人博客简介"
+	title="关于"
+	description="关于惠美陶瓷与本站"
 	pubDate={new Date('2026-01-01')}
 	heroImage={AboutHeroImage}
 >
 	<p>
-		你好，欢迎来到我的个人博客。这里会记录学习笔记、项目实践，以及一些生活碎片。
+		欢迎访问 <strong>惠美陶瓷</strong>（<a href="https://huimei-ceramic.ltd">huimei-ceramic.ltd</a>）。
+		本站用于发布品牌动态、产品与工艺相关的文章记录。
 	</p>
 
 	<p>
 		站点基于 <a href="https://astro.build/">Astro</a> 官方 Blog 模板搭建：用 Markdown
-		写文章，构建成静态页面后部署到云服务器，配合自己的域名即可访问。
+		写文章，构建成静态页面后部署到云服务器。
 	</p>
 
-	<p>你可以这样开始定制：</p>
+	<p>日常维护：</p>
 	<ul>
-		<li>修改 <code>src/consts.ts</code> 里的站点名称与简介</li>
-		<li>在 <code>src/content/blog/</code> 下新增 Markdown 文章</li>
-		<li>把 <code>astro.config.mjs</code> 中的 <code>site</code> 改成你的域名</li>
-		<li>按 README 中的步骤部署到 Nginx / Docker</li>
+		<li>修改站点信息：<code>src/consts.ts</code></li>
+		<li>发布新文章：在 <code>src/content/blog/</code> 新建 Markdown</li>
+		<li>部署说明见仓库 README</li>
 	</ul>
-
-	<p>有想法就写下来——博客最重要的是持续更新，而不是一开始就完美。</p>
 </Layout>

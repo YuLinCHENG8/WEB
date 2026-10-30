@@ -1,6 +1,9 @@
-# 个人博客（Astro）
+# 惠美陶瓷博客（Astro）
 
-基于 [Astro Blog 官方模板](https://github.com/withastro/astro/tree/main/examples/blog) 的中文个人博客脚手架。用 Markdown 写文章，构建为静态站点，可部署到自己的云服务器并绑定域名。
+域名：**huimei-ceramic.ltd**  
+服务器 IP：**43.142.19.45**
+
+基于 [Astro Blog 官方模板](https://github.com/withastro/astro/tree/main/examples/blog)，用 Markdown 写文章，构建为静态站点后部署到云服务器。
 
 ## 本地开发
 
@@ -21,7 +24,6 @@ npm run preview  # 本地预览构建结果
 | 想改什么 | 改哪里 |
 |----------|--------|
 | 站点名称 / 简介 / 作者 | `src/consts.ts` |
-| 网站域名（sitemap、RSS） | `astro.config.mjs` 的 `site` |
 | 导航与页脚 | `src/components/Header.astro`、`Footer.astro` |
 | 关于页 | `src/pages/about.astro` |
 | 写新文章 | 在 `src/content/blog/` 新建 `.md` 文件 |
@@ -40,31 +42,47 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 正文……
 ```
 
+## 域名解析
+
+在域名服务商后台添加（详见 `deploy/dns.md`）：
+
+| 类型 | 主机记录 | 记录值 |
+|------|----------|--------|
+| A | `@` | `43.142.19.45` |
+| A | `www` | `43.142.19.45` |
+
+安全组放行 **80 / 443**。
+
 ## 部署到云服务器
 
-### 方式 A：Nginx + 上传静态文件（推荐起步）
+### 方式 A：Nginx + 上传静态文件（推荐）
 
 1. 服务器安装 Nginx：`sudo apt update && sudo apt install -y nginx`
-2. 本机构建并上传（或用脚本）：
+2. 本机构建并上传：
 
 ```bash
 npm run build
-# 把 dist/ 内容拷到服务器 /var/www/blog
-export DEPLOY_HOST=root@你的服务器IP
-export DEPLOY_PATH=/var/www/blog
-chmod +x deploy/upload.sh && ./deploy/upload.sh
+# 默认上传到 root@43.142.19.45:/var/www/blog
+# 若登录用户不是 root：export DEPLOY_HOST=ubuntu@43.142.19.45
+./deploy/upload.sh
 ```
 
-3. 复制 `deploy/nginx.conf` 到服务器，替换域名后启用站点并 `nginx -t && systemctl reload nginx`
-4. 域名 DNS：`A` 记录指向服务器公网 IP（`@` 和 `www`）
-5. HTTPS：
+3. 把 `deploy/nginx.conf` 拷到服务器并启用：
+
+```bash
+sudo cp deploy/nginx.conf /etc/nginx/sites-available/blog
+sudo ln -sf /etc/nginx/sites-available/blog /etc/nginx/sites-enabled/blog
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+4. 申请 HTTPS：
 
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
-sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+sudo certbot --nginx -d huimei-ceramic.ltd -d www.huimei-ceramic.ltd
 ```
 
-记得在云厂商安全组放行 **80 / 443**。
+完成后访问：https://huimei-ceramic.ltd
 
 ### 方式 B：Docker Compose
 
@@ -74,32 +92,20 @@ sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
 docker compose up -d --build
 ```
 
-默认访问 `http://服务器IP:8080`。可把 `docker-compose.yml` 里端口改为 `80:80`，或前面再挂一层反向代理 + HTTPS。
+默认 `http://43.142.19.45:8080`。可把端口改为 `80:80`，或前面再挂 Nginx + Certbot。
 
 ## 项目结构
 
 ```text
-├── deploy/           # Nginx 配置与上传脚本
-├── public/           # 静态资源
+├── deploy/           # Nginx、DNS 说明、上传脚本
+├── public/
 ├── src/
-│   ├── assets/       # 图片与字体
-│   ├── components/   # 页头、页脚等
-│   ├── content/blog/ # Markdown / MDX 文章
-│   ├── layouts/
-│   └── pages/        # 路由页面
+│   ├── content/blog/ # Markdown 文章
+│   └── pages/
 ├── Dockerfile
 ├── docker-compose.yml
 └── astro.config.mjs
 ```
-
-## 常用命令
-
-| 命令 | 作用 |
-|------|------|
-| `npm run dev` | 本地开发 |
-| `npm run build` | 生产构建 |
-| `npm run preview` | 预览构建结果 |
-| `docker compose up -d --build` | 容器部署 |
 
 ## 说明
 

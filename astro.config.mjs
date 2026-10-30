@@ -5,9 +5,8 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
-// 部署前把 site 改成你的真实域名，例如 https://blog.example.com
 export default defineConfig({
-	site: 'https://example.com',
+	site: 'https://huimei-ceramic.ltd',
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{
