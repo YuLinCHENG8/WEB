@@ -1,0 +1,28 @@
+---
+import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
+import Layout from '../layouts/BlogPost.astro';
+---
+
+<Layout
+	title="关于"
+	description="关于惠美陶瓷与本站"
+	pubDate={new Date('2026-01-01')}
+	heroImage={AboutHeroImage}
+>
+	<p>
+		欢迎访问 <strong>惠美陶瓷</strong>（<a href="https://huimei-ceramic.ltd">huimei-ceramic.ltd</a>）。
+		本站用于发布品牌动态、产品与工艺相关的文章记录。
+	</p>
+
+	<p>
+		站点基于 <a href="https://astro.build/">Astro</a> 官方 Blog 模板搭建：用 Markdown
+		写文章，构建成静态页面后部署到云服务器。
+	</p>
+
+	<p>日常维护：</p>
+	<ul>
+		<li>修改站点信息：<code>src/consts.ts</code></li>
+		<li>发布新文章：在 <code>src/content/blog/</code> 新建 Markdown</li>
+		<li>部署说明见仓库 README</li>
+	</ul>
+</Layout>

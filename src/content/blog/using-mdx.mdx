@@ -1,0 +1,24 @@
+---
+title: '也可以用 MDX'
+description: '需要在文章里嵌入组件时，MDX 是 Markdown 的增强版'
+pubDate: '2026-10-27'
+heroImage: '../../assets/blog-placeholder-5.jpg'
+---
+
+本模板已启用 [@astrojs/mdx](https://docs.astro.build/en/guides/integrations-guide/mdx/)。日常写博客用 `.md` 即可；只有需要在正文里嵌组件时，才改用 `.mdx`。
+
+## 什么时候用 MDX？
+
+- 文章里要放可交互演示
+- 要复用某个 UI 组件
+- 已有 MDX 内容需要迁移
+
+## 示例
+
+下面是在 MDX 中引入组件的例子：
+
+import HeaderLink from '../../components/HeaderLink.astro';
+
+<HeaderLink href="/blog">回到文章列表</HeaderLink>
+
+如果不需要这些能力，继续用普通 Markdown 就好，更简单。
